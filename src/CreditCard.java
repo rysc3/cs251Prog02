@@ -105,7 +105,7 @@ public class CreditCard extends Payment {
       }
     }
     // if total sum == 100, valid, else input is invalid
-    if((SOE + SOO) == 100){
+    if((SOE + SOO) % 10 == 0){
       return PaymentVerification.VALID;
     }else {
       return PaymentVerification.INVALIDCARDNUMBER;
