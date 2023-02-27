@@ -1,4 +1,5 @@
 /**
+ * @author Ryan Scherbarth
  * This class represents a credit card payment.
  * It holds the card number as an int[].
  * It verifies three properties (in this order):
