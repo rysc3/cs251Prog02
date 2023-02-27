@@ -7,28 +7,29 @@
  * when verifying their payment.
  */
 public abstract class Payment {
-    protected final double amount;
+  protected final double amount;
 
-    protected Payment(double amount) {
-        this.amount = amount;
+  protected Payment(double amount) {
+    this.amount = amount;
+  }
+
+  protected enum PaymentVerification {
+    INVALIDCARDNUMBER("You're card number's check digit is invalid."),
+    INVALIDSERIALNUMBER("You're cash's serial number is not between 1,000,000 and 10,000,000."),
+    VALID("You're payment was approved.");
+
+    private final String reason;
+
+    PaymentVerification(String reason) {
+      this.reason = reason;
     }
 
-    protected enum PaymentVerification {
-        INVALIDCARDNUMBER("You're card number's check digit is invalid."),
-        INVALIDSERIALNUMBER("You're cash's serial number is not between 1,000,000 and 10,000,000."),
-        VALID("You're payment was approved.");
-
-        private final String reason;
-
-        PaymentVerification(String reason) {
-            this.reason = reason;
-        }
-
-        @Override
-        public String toString() {
-            return reason;
-        }
+    @Override
+    public String toString() {
+      return reason;
     }
+  }
 
-    protected abstract PaymentVerification verify();
+  protected abstract PaymentVerification verify();
 }
+//Change
