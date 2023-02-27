@@ -10,15 +10,14 @@ public class Cash extends Payment {
   public Cash(double amount, int serialNumber) throws IllegalArgumentException {
     super(amount);
     this.serialNumber = serialNumber;
-
-    try{
-        PaymentVerification verification = verify();
-    }
-    catch(IllegalArgumentException e){
-        throw new IllegalArgumentException();
-    }
     // TODO: If verification is not VALID then throw an IllegalArgumentException
     //       with the toString of verification
+    try{
+      PaymentVerification verification = verify();
+    }
+    catch(IllegalArgumentException e){
+      throw new IllegalArgumentException();
+    }
   }
 
   /**
@@ -30,10 +29,11 @@ public class Cash extends Payment {
   @Override
   protected PaymentVerification verify() {
     // TODO: Fill in the logic given above, replace return null with your code.
-    if(serialNumber > 999999 && serialNumber < 10000001){
+    if(999999 < serialNumber && serialNumber < 10000001){
       return PaymentVerification.VALID;
+    }else{
+      return PaymentVerification.INVALIDSERIALNUMBER;
     }
-    return PaymentVerification.INVALIDSERIALNUMBER;
   }
 
   // TODO: Override equals from Object. It should return true if
@@ -55,8 +55,6 @@ public class Cash extends Payment {
   @Override
   public String toString() {
     // TODO: Fill in the logic given above, replace return null with your code.
-    if( Payment Verification is valid ){
-      return "Valid Cash Serial Number: " + this.serialNumber + ", ammount: " + this.amount;
-    }
+    return "Valid Cash Serial Number: " + this.serialNumber + ", ammount: " + this.amount;
   }
 }
