@@ -11,7 +11,7 @@
  *         PAYMENTNUMBER: Integer
  *         PAYMENTAMOUNT: Double
  */
-import java.text.NumberFormat;
+//import java.text.NumberFormat;
 import java.util.Scanner;
 public class Main {
   /**
@@ -85,7 +85,7 @@ public class Main {
     // Fill in the logic given above, replace return null with your code.
     Double inputAmount = null;
     try{
-      inputAmount = Double.valueOf(paymentAmount);  // Convert payment amount from string to double
+      inputAmount = stringToAmount(paymentAmount);  // Convert payment amount from string to double
 
       if(!paymentType.equals("CREDITCARD") && !paymentType.equals("CASH")){
         System.out.println(paymentType + " is not a valid payment type.");  // Handle invalid payment type
@@ -95,7 +95,7 @@ public class Main {
         // How to assign to type payment??
 
       }else {
-        int serialNum = Integer.valueOf(paymentAmount);   // Convert paymentAmount to int
+        int serialNum = stringToCashSerialNumber(paymentNumber);   // Convert paymentAmount to int
         return new Cash(inputAmount, serialNum);  // Create new cash object
       }
     }
@@ -156,6 +156,6 @@ public class Main {
    */
   private static double stringToAmount(String amount) throws InvalidAmountException {
     // Fill in the logic given above, replace return 0 with your code.
-    return 0;
+    return Double.valueOf(amount);
   }
 }
