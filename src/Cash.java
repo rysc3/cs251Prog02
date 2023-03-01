@@ -10,7 +10,7 @@ public class Cash extends Payment {
   public Cash(double amount, int serialNumber) throws IllegalArgumentException {
     super(amount);
     this.serialNumber = serialNumber;
-    // TODO: If verification is not VALID then throw an IllegalArgumentException
+    // If verification is not VALID then throw an IllegalArgumentException
     //       with the toString of verification
     PaymentVerification verification = verify();
     if(verification == PaymentVerification.INVALIDSERIALNUMBER){
@@ -26,7 +26,7 @@ public class Cash extends Payment {
    */
   @Override
   protected PaymentVerification verify() {
-    // TODO: Fill in the logic given above, replace return null with your code.
+    // Fill in the logic given above, replace return null with your code.
     if(999999 < serialNumber && serialNumber < 10000001){
       return PaymentVerification.VALID;
     }else{

@@ -26,20 +26,18 @@ public class Main {
    * @param args Command line arguments
    */
   public static void main(String[] args) {
-    // TODO: Fill in the logic given above.
-
-    // // Create new scanner for user input
-    // Scanner input = new Scanner(System.in);
-    // while (true) {  // Continuous Loop
-    //   if(input.next().equals("EXIT")){  // exit program if user enters exit
-    //     break;
-    //   }
-
-    //   switch(input.next()){
-    //     case ""
-    //   }
-    // }
-  }
+    while(true){   // Long loop lol
+        Scanner scnr = new Scanner(System.in);
+        String paymentType = scnr.next();
+        if(paymentType.equals("EXIT")){
+          break;  // break out of program if they say "exit"
+        }
+        String paymentNumber = scnr.next();
+        String paymentAmount = scnr.next();
+        Payment userPayment = handleInput(paymentType, paymentNumber, paymentAmount);
+        System.out.println(userPayment.toString());
+      }
+    }
 
   /**
    * This function handles each line of input and returns a Payment. If successful
@@ -84,7 +82,7 @@ public class Main {
    * @return Validated payment
    */
   private static Payment handleInput(String paymentType, String paymentNumber, String paymentAmount) {
-    // TODO: Fill in the logic given above, replace return null with your code.
+    // Fill in the logic given above, replace return null with your code.
     Double inputAmount = null;
     try{
       inputAmount = Double.valueOf(paymentAmount);  // Convert payment amount from string to double
@@ -95,20 +93,19 @@ public class Main {
         int[] ccNum = stringToCreditCardNumber(paymentNumber);  // Convert card number string to int array
         return new CreditCard(inputAmount, ccNum);  // Create new credit card
         // How to assign to type payment??
+
       }else {
         int serialNum = Integer.valueOf(paymentAmount);   // Convert paymentAmount to int
         return new Cash(inputAmount, serialNum);  // Create new cash object
       }
-
     }
     catch(InvalidAmountException e){  // user enters invalid amount
       System.out.println(paymentAmount + " is not a valid amount.");
-      return null;
     }
     catch(NumberFormatException f){   // user enters invalid card number
       System.out.println(paymentNumber + " is not a valid card/serial number.");
-      return null;
     }
+    return null;
   }
 
   /**
@@ -124,7 +121,7 @@ public class Main {
    *                               a number
    */
   private static int[] stringToCreditCardNumber(String creditCardNumber) throws NumberFormatException {
-    // TODO: Fill in the logic given above, replace return null with your code.
+    // Fill in the logic given above, replace return null with your code.
     int[] creditCardNum = new int[6];   // Valid credit card numbers must be length 6 in this program
     // Catch invalid length
     if(creditCardNumber.length() != 6){
@@ -158,7 +155,7 @@ public class Main {
    * @throws InvalidAmountException Occurs if amount is not a valid double
    */
   private static double stringToAmount(String amount) throws InvalidAmountException {
-    // TODO: Fill in the logic given above, replace return 0 with your code.
+    // Fill in the logic given above, replace return 0 with your code.
     return 0;
   }
 }
