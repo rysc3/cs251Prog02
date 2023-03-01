@@ -12,11 +12,9 @@ public class Cash extends Payment {
     this.serialNumber = serialNumber;
     // TODO: If verification is not VALID then throw an IllegalArgumentException
     //       with the toString of verification
-    try{
-      PaymentVerification verification = verify();
-    }
-    catch(IllegalArgumentException e){
-      throw new IllegalArgumentException();
+    PaymentVerification verification = verify();
+    if(verification == PaymentVerification.INVALIDSERIALNUMBER){
+      System.out.println(PaymentVerification.INVALIDSERIALNUMBER.toString());
     }
   }
 
@@ -36,7 +34,7 @@ public class Cash extends Payment {
     }
   }
 
-  // TODO: Override equals from Object. It should return true if
+  // Override equals from Object. It should return true if
   // both serial numbers are equal, e.g. this.serialNumber == o.serialNumber
   // where o is the other Cash object.
   //@Override
@@ -54,7 +52,7 @@ public class Cash extends Payment {
    */
   @Override
   public String toString() {
-    // TODO: Fill in the logic given above, replace return null with your code.
+    // Fill in the logic given above, replace return null with your code.
     return "Valid Cash Serial Number: " + this.serialNumber + ", ammount: " + this.amount;
   }
 }

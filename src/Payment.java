@@ -1,4 +1,5 @@
 /**
+ * @author Ryan Scherbarth
  * This abstract class represents a general payment.
  * It holds an amount which cannot be changed. It also
  * declares an abstract method to verify a given payment.
@@ -32,4 +33,3 @@ public abstract class Payment {
 
   protected abstract PaymentVerification verify();
 }
-//Change

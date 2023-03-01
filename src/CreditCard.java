@@ -40,21 +40,13 @@ public class CreditCard extends Payment {
    * @return True if all ints are in the above range false otherwise.
    */
   private boolean verifyCardDigits() {
-    // TODO: Fill in the logic given above, replace return false with your code.
-    try{
-      for (int i = 0; i < cardNumber.length; i++) {
-        if (cardNumber[i] < 0 || cardNumber[i] > 9) { // Check if each digit is between 0 & 9
-          return false;
-        }else if(cardNumber.length != 6){  // Throw error if length isn't 6
-          return false;
-        }
+    // Fill in the logic given above, replace return false with your code.
+    for (int i = 0; i < cardNumber.length; i++) {
+      if (cardNumber[i] < 0 || cardNumber[i] > 9 || cardNumber.length != 6) { // Each digit between 0 & 9, length == 6
+        return false;
       }
-      return true;
     }
-    catch(IllegalArgumentException e){  // If an error is thrown, output the reason of the error.
-      System.out.println(PaymentVerification.INVALIDCARDNUMBER.toString());
-      return false;
-    }
+    return true;
   }
 
   /**
@@ -65,7 +57,7 @@ public class CreditCard extends Payment {
    * @return Sum of the digits of the given int
    */
   private int sumDigits(int num) {
-    // TODO: Fill in the logic given above, replace return 0 with your code.
+    // Fill in the logic given above, replace return 0 with your code.
     String original = Integer.toString(num);  // Convert to string
     int[] retArr = new int[original.length()];  // convert from string to array of digits
     int retVal = 0;
@@ -83,7 +75,16 @@ public class CreditCard extends Payment {
    */
   @Override
   protected PaymentVerification verify() {
-    // TODO: Fill in the logic given above, replace return null with your code.
+    // Fill in the logic given above, replace return null with your code.
+    // // Start by verifying card digits
+    // if(this.verifyCardDigits() == false){
+    //   if(this.cardNumber.length == 6){  // If verify digits fails and length == 6, one of the digits is not 0 < x < 9
+    //     throw new IllegalArgumentException("The card number must consist of numbers in the following range: [0,9]");
+    //   }else{
+    //     throw new IllegalArgumentException(); // If not the above, then it is a card number length error.
+    //   }
+    // }
+
     // Loop through entire card number
     int SOE = 0; // Sum of even
     int SOO = 0; // Sum of odd
@@ -122,8 +123,8 @@ public class CreditCard extends Payment {
    */
   @Override
   public boolean equals(Object o) {
-    // TODO: Fill in the logic given above, replace return false with your code.
-    if(this.cardNumber != o.cardNumber){  //TODO: What is going wrong here?
+    // Fill in the logic given above, replace return false with your code.
+    if(this.cardNumber != o){
       return false;
     }
     return true;
@@ -136,8 +137,7 @@ public class CreditCard extends Payment {
    */
   @Override
   public String toString() {
-    // TODO: Fill in the logic given above, replace return null with your code.
-    return null;
+    // Fill in the logic given above, replace return null with your code.
+    return "Valid Credit Card Number: " + this.cardNumber + ", ammount: " + this.amount;
   }
 }
-// Change
