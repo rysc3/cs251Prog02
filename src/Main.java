@@ -11,6 +11,8 @@
  *         PAYMENTNUMBER: Integer
  *         PAYMENTAMOUNT: Double
  */
+import java.text.NumberFormat;
+import java.util.Scanner;
 public class Main {
   /**
    * This function contains the loop to continuously read in
@@ -25,9 +27,18 @@ public class Main {
    */
   public static void main(String[] args) {
     // TODO: Fill in the logic given above.
-    while (true) {  // Continuous Loop
 
-    }
+    // // Create new scanner for user input
+    // Scanner input = new Scanner(System.in);
+    // while (true) {  // Continuous Loop
+    //   if(input.next().equals("EXIT")){  // exit program if user enters exit
+    //     break;
+    //   }
+
+    //   switch(input.next()){
+    //     case ""
+    //   }
+    // }
   }
 
   /**
@@ -74,7 +85,29 @@ public class Main {
    */
   private static Payment handleInput(String paymentType, String paymentNumber, String paymentAmount) {
     // TODO: Fill in the logic given above, replace return null with your code.
-    return null;
+
+    // Convert payment amount to a double
+    Double inputAmount = null;
+    try{
+      inputAmount = Double.valueOf(paymentAmount);
+    }
+    catch(InvalidAmountException e){
+      System.out.println(paymentAmount + " is not a valid amount."); // If converting causes an error, print that.
+    }
+
+    // Check valid payment types
+    if(!paymentType.equals("CREDITCARD") && !paymentType.equals("CASH")){
+      System.out.println(paymentType + " is not a recognized payment type."); // Catch invalid payment type
+    }else if(paymentType.equals("CREDITCARD")){
+      try{
+        int[] ccNum = stringToCreditCardNumber(paymentNumber); // Convert cc number to int array
+        return new CreditCard(inputAmount, ccNum);
+      }
+      catch(NumberFormatException e){
+        System.out.println(paymentNumber + " is not a valid card/serial number.");
+      }
+
+    }
   }
 
   /**
@@ -91,7 +124,15 @@ public class Main {
    */
   private static int[] stringToCreditCardNumber(String creditCardNumber) throws NumberFormatException {
     // TODO: Fill in the logic given above, replace return null with your code.
-    return null;
+    int[] creditCardNum = new int[6];   // Valid credit card numbers must be length 6 in this program
+    // Catch invalid length
+    if(creditCardNumber.length() != 6){
+      throw new NumberFormatException();
+    }
+    for(int i=0; i<6; i++){
+      creditCardNum[i] = creditCardNumber.charAt(i);
+    }
+    return creditCardNum;
   }
 
   /**

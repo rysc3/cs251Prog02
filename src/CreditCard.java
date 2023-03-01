@@ -75,16 +75,6 @@ public class CreditCard extends Payment {
    */
   @Override
   protected PaymentVerification verify() {
-    // Fill in the logic given above, replace return null with your code.
-    // // Start by verifying card digits
-    // if(this.verifyCardDigits() == false){
-    //   if(this.cardNumber.length == 6){  // If verify digits fails and length == 6, one of the digits is not 0 < x < 9
-    //     throw new IllegalArgumentException("The card number must consist of numbers in the following range: [0,9]");
-    //   }else{
-    //     throw new IllegalArgumentException(); // If not the above, then it is a card number length error.
-    //   }
-    // }
-
     // Loop through entire card number
     int SOE = 0; // Sum of even
     int SOO = 0; // Sum of odd
