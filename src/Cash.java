@@ -6,6 +6,7 @@
  */
 public class Cash extends Payment {
   private final int serialNumber;
+  public boolean isValid;
 
   public Cash(double amount, int serialNumber) throws IllegalArgumentException {
     super(amount);
@@ -27,7 +28,9 @@ public class Cash extends Payment {
   @Override
   protected PaymentVerification verify() {
     // Fill in the logic given above, replace return null with your code.
+    isValid = false;
     if(999999 < serialNumber && serialNumber < 10000001){
+      isValid = true;   // Check if input is valid, used to decide if we should output w/ toString()
       return PaymentVerification.VALID;
     }else{
       return PaymentVerification.INVALIDSERIALNUMBER;
@@ -53,6 +56,9 @@ public class Cash extends Payment {
   @Override
   public String toString() {
     // Fill in the logic given above, replace return null with your code.
-    return "Valid Cash Serial Number: " + this.serialNumber + ", ammount: " + this.amount;
+    if(isValid){  // Only return if valid input is given
+      return "Valid Cash Serial Number: " + this.serialNumber + ", ammount: " + this.amount;
+    }
+    return "";
   }
 }

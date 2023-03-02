@@ -42,6 +42,10 @@ public class CreditCard extends Payment {
   private boolean verifyCardDigits() {
     // Fill in the logic given above, replace return false with your code.
     for (int i = 0; i < cardNumber.length; i++) {
+      // System.out.println(cardNumber[i]);
+      if(cardNumber[i] != (int)cardNumber[i]){
+        return false;
+      }
       if (cardNumber[i] < 0 || cardNumber[i] > 9 || cardNumber.length != 6) { // Each digit between 0 & 9, length == 6
         return false;
       }
@@ -76,7 +80,10 @@ public class CreditCard extends Payment {
   @Override
   protected PaymentVerification verify() {
     // Loop through entire card number
-    this.verifyCardDigits();  // First verify card digits are valid.
+    // System.out.println("CreditCard85: " + this.cardNumber);
+    if(this.verifyCardDigits() == false){
+      return PaymentVerification.INVALIDCARDNUMBER;
+    }
     int SOE = 0; // Sum of even
     int SOO = 0; // Sum of odd
     for(int i=0; i<cardNumber.length; i++){
@@ -132,6 +139,9 @@ public class CreditCard extends Payment {
   @Override
   public String toString() {
     // Fill in the logic given above, replace return null with your code.
-    return "Valid Credit Card Number: " + this.cardNumber + ", ammount: " + this.amount;
+    // if(this.verify() == PaymentVerification.VALID){
+    //   return "Valid Credit Card Number: " + this.cardNumber + ", ammount: " + this.amount;
+    // }
+    return "Valid Credit Card Number: " + this.cardNumber + ", amount: " + this.amount;
   }
 }
