@@ -12,6 +12,29 @@
  *         PAYMENTAMOUNT: Double
  */
 //import java.text.NumberFormat;
+
+
+//                                Test Cases
+//  CREDITCARD 123456 40.0
+// You're card number's check digit is invalid.
+// CREDITCARD 12345 40.25
+// The card number must be exactly 6 digits
+// CREDITCARD 123455 40.25
+// Valid Credit Card Number: 123455, amount: 40.25
+// CREDITCARD 123455 4.0.0
+//  4.0.0 is not a valid amount.
+// CASH 1 40.25
+// You're cash's serial number is not between 1,000,000 and 10,000,000.
+// CASH 1000000 40.25
+// Valid Cash Serial Number: 1000000, amount: 40.25
+// CASH 1000000 4.0.0
+//  4.0.0 is not a valid amount.
+// WHAT 123455 40.25
+// WHAT is not a recognized payment type.
+// CREDITCARD where 40.25
+// where is not a valid card/serial number.
+// EXIT
+
 import java.util.Scanner;
 public class Main {
   /**
@@ -35,7 +58,9 @@ public class Main {
         String paymentNumber = scnr.next();
         String paymentAmount = scnr.next();
         Payment userPayment = handleInput(paymentType, paymentNumber, paymentAmount);
-        System.out.println(userPayment.toString());
+        if(userPayment != null){
+          System.out.println(userPayment.toString());
+        }
       }
     }
 
@@ -89,21 +114,31 @@ public class Main {
 
       if(!paymentType.equals("CREDITCARD") && !paymentType.equals("CASH")){
         System.out.println(paymentType + " is not a valid payment type.");  // Handle invalid payment type
+        return null;
       }else if(paymentType.equals("CREDITCARD")){
         int[] ccNum = stringToCreditCardNumber(paymentNumber);  // Convert card number string to int array
-        return new CreditCard(inputAmount, ccNum);  // Create new credit card
+        CreditCard userCredit = new CreditCard(inputAmount, ccNum);   // Create new credit card
+        return userCredit;
         // How to assign to type payment??
 
       }else {
         int serialNum = stringToCashSerialNumber(paymentNumber);   // Convert paymentAmount to int
-        return new Cash(inputAmount, serialNum);  // Create new cash object
+        Cash userCash = new Cash(inputAmount, serialNum);   // Create new user cash item
+        return userCash;  // Return cash
       }
     }
     catch(InvalidAmountException e){  // user enters invalid amount
       System.out.println(paymentAmount + " is not a valid amount.");
     }
     catch(NumberFormatException f){   // user enters invalid card number
-      System.out.println(paymentNumber + " is not a valid card/serial number.");
+      if(paymentNumber.length() != 6){
+        System.out.println("The card number must be exactly 6 digits");
+      }else {
+        System.out.println(paymentNumber + " is not a valid card/serial number.");
+      }
+    }
+    catch(NullPointerException g){
+      System.out.println("Null bro");
     }
     return null;
   }

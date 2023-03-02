@@ -76,12 +76,14 @@ public class CreditCard extends Payment {
   @Override
   protected PaymentVerification verify() {
     // Loop through entire card number
+    this.verifyCardDigits();  // First verify card digits are valid.
     int SOE = 0; // Sum of even
     int SOO = 0; // Sum of odd
     for(int i=0; i<cardNumber.length; i++){
       if(i % 2 == 0){   // Even positions
         if(cardNumber[i] < 5){
           SOE += (2 * cardNumber[i]);   // multiply by 2 and add to total if single digit
+          System.out.println(SOE);
         }else {
           int temp = (2 * cardNumber[i]);   // Multiply by 2
           SOE += sumDigits(temp);   // Add sum of digits to running total
@@ -89,6 +91,7 @@ public class CreditCard extends Payment {
       }else {   //Odd positions
         if(cardNumber[i] < 5){  // if single digit
           SOO += (2 * cardNumber[i]);
+          System.out.println(SOO);
         }else {
           int temp = (2 * cardNumber[i]);
           SOO += sumDigits(temp);
@@ -96,6 +99,7 @@ public class CreditCard extends Payment {
       }
     }
     // if total sum == 100, valid, else input is invalid
+    System.out.println((SOO + SOE) % 10);
     if((SOE + SOO) % 10 == 0){
       return PaymentVerification.VALID;
     }else {
