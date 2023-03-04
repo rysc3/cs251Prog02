@@ -12,9 +12,7 @@
  *         the Luhn algorithm (https://en.wikipedia.org/wiki/Luhn_algorithm).
  */
 public class CreditCard extends Payment {
-
   private final int[] cardNumber;
-
   public CreditCard(double amount, int[] cardNumber) throws IllegalArgumentException {
     super(amount);
     this.cardNumber = cardNumber;
@@ -66,16 +64,9 @@ public class CreditCard extends Payment {
       return num;
     }else{
       String digits = String.valueOf(num*2);    // Comically long way of converting int to int array etc.
-      System.out.println("Doubling num: " + num);
-      //num *= 2;
-      System.out.println("Doubled num: " + num);
-      System.out.println("digits char at 0::: " + digits.charAt(0));
-      System.out.println("digits at char 1::: " + digits.charAt(1));
       int[] nums = {Character.getNumericValue(digits.charAt(0)), Character.getNumericValue(digits.charAt(1))};
       return nums[0] + nums[1];
     }
-    // return value if value is less than 10
-    // Otherwise add digits for all numbers
   }
   /**
    * This function verifies that cardNumber's check
