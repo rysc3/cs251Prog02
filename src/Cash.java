@@ -7,7 +7,6 @@
 public class Cash extends Payment {
   private final int serialNumber;
   public boolean isValid;
-
   public Cash(double amount, int serialNumber) throws IllegalArgumentException {
     super(amount);
     this.serialNumber = serialNumber;
@@ -18,7 +17,6 @@ public class Cash extends Payment {
       System.out.println(PaymentVerification.INVALIDSERIALNUMBER.toString());
     }
   }
-
   /**
    * This function verifies that the serial number is in the following
    * range: [1000000, 10000000]
@@ -36,7 +34,6 @@ public class Cash extends Payment {
       return PaymentVerification.INVALIDSERIALNUMBER;
     }
   }
-
   // Override equals from Object. It should return true if
   // both serial numbers are equal, e.g. this.serialNumber == o.serialNumber
   // where o is the other Cash object.
@@ -47,7 +44,6 @@ public class Cash extends Payment {
     }
     return false;
   }
-
   /**
    * This function converts this to a string
    *

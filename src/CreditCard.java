@@ -39,14 +39,12 @@ public class CreditCard extends Payment {
    */
   private boolean verifyCardDigits() {
     // Fill in the logic given above, replace return false with your code.
-    if(this.cardNumber.length != 6){
+    if(this.cardNumber.length != 6){  // Throw error if length isn't exactly 6
       System.out.println("The card number must be exactly 6 digits.");
       return false;
     }
-    for (int i = 0; i < cardNumber.length; i++) {
-      // System.out.println(cardNumber[i]);
-      if(cardNumber[i] != (int)cardNumber[i]){
-        System.out.println("VerifyCardDigits False 1");
+    for (int i = 0; i < cardNumber.length; i++) {   // Loop through cardNumber array
+      if(cardNumber[i] != (int)cardNumber[i]){    // Make sure each digit is actually an int
         return false;
       }
       if (cardNumber[i] < 0 || cardNumber[i] > 9 || cardNumber.length != 6) { // Each digit between 0 & 9, length == 6
@@ -54,10 +52,8 @@ public class CreditCard extends Payment {
         return false;
       }
     }
-    System.out.println("VerifyCardDigits true");
-    return true;
+    return true;    // If no errors are caught then we gucci
   }
-
   /**
    * This function sums the digits of the given int.
    * For example if given 123 it would return 6.
@@ -78,11 +74,9 @@ public class CreditCard extends Payment {
       int[] nums = {Character.getNumericValue(digits.charAt(0)), Character.getNumericValue(digits.charAt(1))};
       return nums[0] + nums[1];
     }
-
     // return value if value is less than 10
     // Otherwise add digits for all numbers
   }
-
   /**
    * This function verifies that cardNumber's check
    * digit is correct using the Luhn algorithm.
@@ -91,39 +85,29 @@ public class CreditCard extends Payment {
    */
   @Override
   protected PaymentVerification verify() {
-    verifyCardDigits();
+    verifyCardDigits();   // Check that digits are all valid
     int checkDigit = this.cardNumber[this.cardNumber.length-1];   // Establish check digit
     int[] newArr = new int[this.cardNumber.length];   // New arr is the card num without check digit
     newArr[newArr.length-1] = checkDigit;   // Set check digit
     int newArrSum = 0;  // Used to calculate checkdigit
-    int i=this.cardNumber.length-1;
+    int i=this.cardNumber.length-1;   // Used to create while loop to loop backwards through the cardNum
     while(i > 0){
-      if(i % 2 == 0){
-        System.out.println("index: " + i + " :: made it to %2 verify");
-        // Card length is 6, dropping the check digit we need to sumdigits of all the odd nums
-        newArr[i] = sumDigits(this.cardNumber[i]);
+      if(i % 2 == 0){   // Values that are in the even positions (to be multiplied by 2)
+        newArr[i] = sumDigits(this.cardNumber[i] * 2);  // send every value to sumDigits after doubling
         newArrSum += newArr[i];
-        System.out.println("%2 verify: " + newArr[i]);
-        System.out.println("New arr sum even: " + newArrSum);
-      }else{
-        System.out.println("index: " + i + " :: Made it to not %2 verify");
-        newArr[i] = this.cardNumber[i];   // If not an even number, just keep the original
+      }else{  // Handle the odd positions
+        newArr[i] = this.cardNumber[i];   // do nothing if it is in an odd position
         newArrSum += newArr[i];
-        System.out.println("New Arr next: " + newArr[i]);
-        System.out.println(" New Arr Sum odd: " + newArrSum);
       }
       i--;
     }
     // Check if the sum matches check digit
-    System.out.println("check: " + checkDigit);
-    System.out.println("arr added: " + newArrSum);
-    if(((10 - (newArrSum % 10)) % 10) == checkDigit){
+    if(((10 - (newArrSum % 10)) % 10) == checkDigit){   // Rest of luhm's algo
       return PaymentVerification.VALID;
     }else {
       return PaymentVerification.INVALIDCARDNUMBER;
     }
   }
-
   /**
    * This function checks if the cardNumber of this matches the card
    * number of o.
@@ -139,7 +123,6 @@ public class CreditCard extends Payment {
     }
     return true;
   }
-
   /**
    * This function converts this to a string
    *
@@ -147,25 +130,14 @@ public class CreditCard extends Payment {
    */
   @Override
   public String toString() {
-    // Fill in the logic given above, replace return null with your code.
-    // if(this.verify() == PaymentVerification.VALID){
-    //   return "Valid Credit Card Number: " + this.cardNumber + ", ammount: " + this.amount;
-    // }
-    // Loop over cardNumber to print out values
-    // return "Valid Credit Card Number: " + this.cardNumber + ", amount: " + this.amount;
-
-    //verify();
-
-    String cardNum = "";
-    //System.out.println("\nCreditCard 140, cardNumber Length: " + cardNumber.length + "\n");
+    String cardNum = "";  // Use string for cardNumber since its easier to concatenate
     for(int i=0; i<cardNumber.length; i++){
-      cardNum += cardNumber[i];
+      cardNum += cardNumber[i];   // Build new cardnumber string (probably could have done this in an easier way idfk)
     }
     if(this.verify() == PaymentVerification.VALID){
-      return "Valid Credit Card Number: " + cardNum + ", amount: " + this.amount;
+      return "Valid Credit Card Number: " + cardNum + ", amount: " + this.amount;   // Say SUCCESS if valid
     }else{
-      return PaymentVerification.INVALIDCARDNUMBER.toString();
+      return PaymentVerification.INVALIDCARDNUMBER.toString();  // Say not success if not valid lol
     }
-
   }
 }

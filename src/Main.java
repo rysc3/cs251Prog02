@@ -12,31 +12,6 @@
  *         PAYMENTAMOUNT: Double
  */
 //import java.text.NumberFormat;
-
-
-//                                Test Cases
-// DONE //  CREDITCARD 123456 40.0
-// You're card number's check digit is invalid.
-// DONE // CREDITCARD 12345 40.25
-// The card number must be exactly 6 digits
-// CREDITCARD 123455 40.25CREDITCARD 123455 4.0.0
-// Valid Credit Card Number: 123455, amount: 40.25 // I don't agree that this should be the output lol.
-// DONE // CREDITCARD 123455 4.0.0
-//  4.0.0 is not a valid amount.
-// DONE // CASH 1 40.25
-// You're cash's serial number is not between 1,000,000 and 10,000,000.
-// DONE // CASH 1000000 40.25
-// Valid Cash Serial Number: 1000000, amount: 40.25
-// CASH 1000000 4.0.0
-//  4.0.0 is not a valid amount.
-// DONE // WHAT 123455 40.25
-// WHAT is not a recognized payment type.
-// CREDITCARD where 40.25
-// where is not a valid card/serial number.
-// EXIT
-// CREDITCARD 123455 40.25
-
-//import java.util.Scanner;
 import java.io.*;
 import java.util.*;
 public class Main {
@@ -54,19 +29,18 @@ public class Main {
   public static void main(String[] args) {
     while(true){   // Long loop lol
         Scanner scnr = new Scanner(System.in);
-        String paymentType = scnr.next();
+        String paymentType = scnr.next();   // Accept user input
         if(paymentType.equals("EXIT")){
           break;  // break out of program if they say "exit"
         }
         String paymentNumber = scnr.next();
         String paymentAmount = scnr.next();
-        Payment userPayment = handleInput(paymentType, paymentNumber, paymentAmount);
+        Payment userPayment = handleInput(paymentType, paymentNumber, paymentAmount);   // Throw user input to handleInput
         if(userPayment != null){
-          System.out.println(userPayment.toString());
+          System.out.println(userPayment.toString());   // Handle error of no input given
         }
       }
     }
-
   /**
    * This function handles each line of input and returns a Payment. If successful
    * then Payment will either be Cash or CreditCard. However, if an exception is
@@ -145,7 +119,6 @@ public class Main {
     }
     return null;
   }
-
   /**
    * Converts the given string to a credit card number represented as an int[].
    * By converting each character of the String into an int and storing them
@@ -159,17 +132,12 @@ public class Main {
    *                               a number
    */
   private static int[] stringToCreditCardNumber(String creditCardNumber) throws NumberFormatException {
-    int[] creditCardArr = new int[creditCardNumber.length()];
+    int[] creditCardArr = new int[creditCardNumber.length()];   // Create new array
     for(int i=0; i<creditCardNumber.length(); i++){
-      creditCardArr[i] = Integer.parseInt(String.valueOf(creditCardNumber.charAt(i)));
+      creditCardArr[i] = Integer.parseInt(String.valueOf(creditCardNumber.charAt(i)));  // Fill arrray
     }
-    // for(int i=0; i<creditCardArr.length; i++){
-    //   System.out.println("\nMain 166, creditCardArr: " + creditCardArr[i] + "\n");
-    // }
-    //System.out.println("\nMain 166 credit card Arr " + creditCardArr + "\n");
     return creditCardArr;
   }
-
   /**
    * Attempts to convert serialNumber to an int using Integer.parseInt.
    *
@@ -180,7 +148,6 @@ public class Main {
   private static int stringToCashSerialNumber(String serialNumber) throws NumberFormatException {
     return Integer.parseInt(serialNumber);
   }
-
   /**
    * Attempts to convert amount to a double using Double.parseDouble.
    * If it fails it catches the NumberFormatException and throws an
