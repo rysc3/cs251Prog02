@@ -30,6 +30,5 @@ public abstract class Payment {
       return reason;
     }
   }
-
   protected abstract PaymentVerification verify();
 }

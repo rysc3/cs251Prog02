@@ -15,7 +15,7 @@
 
 
 //                                Test Cases
-//  CREDITCARD 123456 40.0
+// DONE //  CREDITCARD 123456 40.0
 // You're card number's check digit is invalid.
 // DONE // CREDITCARD 12345 40.25
 // The card number must be exactly 6 digits
@@ -34,8 +34,11 @@
 // CREDITCARD where 40.25
 // where is not a valid card/serial number.
 // EXIT
+// CREDITCARD 123455 40.25
 
-import java.util.Scanner;
+//import java.util.Scanner;
+import java.io.*;
+import java.util.*;
 public class Main {
   /**
    * This function contains the loop to continuously read in
@@ -119,7 +122,7 @@ public class Main {
         return null;
       }else if(paymentType.equals("CREDITCARD")){
         int[] ccNum = stringToCreditCardNumber(paymentNumber);  // Convert card number string to int array
-        System.out.println("Main 122:" + ccNum);
+        System.out.println("Main 122 ccNum handleInput: " + Arrays.toString(ccNum));
         CreditCard userCredit = new CreditCard(inputAmount, ccNum);   // Create new credit card
         return userCredit;
       }else {
@@ -156,25 +159,15 @@ public class Main {
    *                               a number
    */
   private static int[] stringToCreditCardNumber(String creditCardNumber) throws NumberFormatException {
-    // Fill in the logic given above, replace return null with your code.
-    int[] creditCardNum = new int[6];   // Valid credit card numbers must be length 6 in this program
-    // Catch invalid length
-    if(creditCardNumber.length() != 6){
-      throw new NumberFormatException();
+    int[] creditCardArr = new int[creditCardNumber.length()];
+    for(int i=0; i<creditCardNumber.length(); i++){
+      creditCardArr[i] = Integer.parseInt(String.valueOf(creditCardNumber.charAt(i)));
     }
-    for(int i=0; i<6; i++){
-      // System.out.println("Str: " + creditCardNumber.charAt(i));
-      // System.out.println("Arr: " + creditCardNum[i]);
-      creditCardNum[i] = creditCardNumber.charAt(i);
-      // System.out.println("New Arr: " + creditCardNum[i]);
-    }
-    // System.out.println(creditCardNum);
-    for(int i=0; i<6; i++){   // Catch error if an item is not an int
-      if(creditCardNum[i] != (int)creditCardNum[i]){
-        throw new NumberFormatException();
-      }
-    }
-    return creditCardNum;
+    // for(int i=0; i<creditCardArr.length; i++){
+    //   System.out.println("\nMain 166, creditCardArr: " + creditCardArr[i] + "\n");
+    // }
+    //System.out.println("\nMain 166 credit card Arr " + creditCardArr + "\n");
+    return creditCardArr;
   }
 
   /**
