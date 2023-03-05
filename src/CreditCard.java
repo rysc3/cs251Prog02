@@ -63,9 +63,13 @@ public class CreditCard extends Payment {
     if(num < 4){
       return num;
     }else{
-      String digits = String.valueOf(num*2);    // Comically long way of converting int to int array etc.
+      num += num;
+      String digits = String.valueOf(num);    // Comically long way of converting int to int array etc.
+      System.out.println(digits);
       int[] nums = {Character.getNumericValue(digits.charAt(0)), Character.getNumericValue(digits.charAt(1))};
-      return nums[0] + nums[1];
+      System.out.println("num1: " + nums[0]);
+      System.out.println("num 2: " + nums[1]);
+      return (nums[0] + nums[1]);
     }
   }
   /**
@@ -81,18 +85,23 @@ public class CreditCard extends Payment {
     int[] newArr = new int[this.cardNumber.length];   // New arr is the card num without check digit
     newArr[newArr.length-1] = checkDigit;   // Set check digit
     int newArrSum = 0;  // Used to calculate checkdigit
-    int i=this.cardNumber.length-1;   // Used to create while loop to loop backwards through the cardNum
-    while(i > 0){
+    int i=this.cardNumber.length-2;   // Used to create while loop to loop backwards through the cardNum
+    while(i > -1){
+      System.out.println(" IGNORE Card Number: " + this.cardNumber[i]);
       if(i % 2 == 0){   // Values that are in the even positions (to be multiplied by 2)
         newArr[i] = sumDigits(this.cardNumber[i] * 2);  // send every value to sumDigits after doubling
         newArrSum += newArr[i];
+        System.out.println(i + " sum arr: " + newArr[i]);
       }else{  // Handle the odd positions
         newArr[i] = this.cardNumber[i];   // do nothing if it is in an odd position
         newArrSum += newArr[i];
+        System.out.println(i + " non sum Arr: " + newArr[i]);
       }
       i--;
     }
     // Check if the sum matches check digit
+    System.out.println("Check digit: " + checkDigit);
+    System.out.println("Arr Sum: " + newArrSum);
     if(((10 - (newArrSum % 10)) % 10) == checkDigit){   // Rest of luhm's algo
       return PaymentVerification.VALID;
     }else {
